@@ -5,7 +5,6 @@ import { PARTNERS } from '../shared/partners';
 import { FlatList } from 'react-native-gesture-handler';
 
 
-
 function Mission(){
     return(
         <Card
@@ -16,8 +15,6 @@ function Mission(){
         </Card>
     );
 }
-
-
 
 class AboutComponent extends Component{
 

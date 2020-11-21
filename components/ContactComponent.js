@@ -6,7 +6,7 @@ function RenderCard(){
     return(
         <Card 
             title={"Contact Information"}
-            wrapperStyle={{margin:20, marginBottom:10}}>
+            wrapperStyle={{margin:20}}>
             <Text>
                 1 Nucamp Way {'\n'}
                 Seattle, WA 98001{'\n'}
@@ -20,16 +20,6 @@ function RenderCard(){
 
 class ContactComponent extends Component{
 
-    // constructor(props){
-    //     super(props);
-    //     this.state = {
-    //         campsites: CAMPSITES,
-    //         promotions: PROMOTIONS,
-    //         partners: PARTNERS
-    //     };
-    // }
-
-
     static navigationOptions = {
         title: 'Contact Us'
     }
@@ -41,8 +31,6 @@ class ContactComponent extends Component{
             </ScrollView>
         );
     }
-
-
 }
 
 export default ContactComponent;
