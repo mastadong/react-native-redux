@@ -12,6 +12,19 @@ import Directory from './DirectoryComponent';
 import CampsiteInfo from './CampsiteInfoComponent';
 import About from './AboutComponent';
 import Contact from './ContactComponent';
+import { connect } from 'react-redux';
+//Import Action Creators
+import { fetchCampsites, fetchComments, 
+    fetchPromotions, fetchPartners } from '../redux/ActionCreators';
+
+//MAP DISPATCHES
+const mapDispatchToProps = {
+    fetchCampsites,
+    fetchComments,
+    fetchPromotions,
+    fetchPartners
+};
+
 
 const DirectoryNavigator = createStackNavigator(
     {
@@ -202,6 +215,15 @@ const AppNavigator = createAppContainer(MainNavigator);
 
 //MAIN
 class Main extends Component {
+    
+    componentDidMount(){
+        this.props.fetchCampsites();
+        this.props.fetchComments();
+        this.props.fetchPromotions();
+        this.props.fetchPartners();
+    }
+   
+   
     render() {
         return (
             <View style={{
@@ -243,4 +265,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Main;
+export default connect(null, mapDispatchToProps)(Main);
