@@ -16,16 +16,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     postFavorite: campsiteId => (postFavorite(campsiteId))
-}
+};
 
 class CampsiteInfo extends Component{
-    
-    constructor(props){
-        super(props);
-        this.state = {
-            favorite: false
-        };
-    }
     
     markFavorite(campsiteId) {
         this.props.postFavorite(campsiteId);
