@@ -6,13 +6,15 @@ import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import { createAppContainer } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import SafeAreaView from 'react-native-safe-area-view';
+import { connect } from 'react-redux';
 
 //local components
 import Directory from './DirectoryComponent';
 import CampsiteInfo from './CampsiteInfoComponent';
 import About from './AboutComponent';
 import Contact from './ContactComponent';
-import { connect } from 'react-redux';
+import Reservation from './ReservationComponent';
+
 //Import Action Creators
 import { fetchCampsites, fetchComments, 
     fetchPromotions, fetchPartners } from '../redux/ActionCreators';
@@ -25,7 +27,7 @@ const mapDispatchToProps = {
     fetchPartners
 };
 
-
+//STACK NAVIGATORS
 const DirectoryNavigator = createStackNavigator(
     {
         Directory: { 
@@ -126,6 +128,29 @@ const ContactNavigator = createStackNavigator(
     }
 );
 
+const ReservationNavigator = createStackNavigator(
+    {
+        Reservation: { screen: Reservation }
+    },
+    {
+        defaultNavigationOptions: ({navigation}) => ({
+            headerStyle: {
+                backgroundColor: '#5637DD'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            },
+            headerLeft: <Icon
+                name='tree'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        })
+    }
+);
+
 //CUSTOM DRAWER COMPONENT
 const CustomDrawerContentComponent = props => (
     <ScrollView>
@@ -145,7 +170,7 @@ const CustomDrawerContentComponent = props => (
     </ScrollView>
 );
 
-
+//MAIN NAVIGATOR
 const MainNavigator = createDrawerNavigator(
     {
         Home: { 
@@ -174,6 +199,20 @@ const MainNavigator = createDrawerNavigator(
                 )
             } 
         },
+        Reservation: {
+            screen: ReservationNavigator,
+            navigationOptions: {
+                drawerLabel: 'Reserve Campsite',
+                drawerIcon: ({tintColor}) => (
+                    <Icon
+                        name='tree'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
+        },
         About: { 
             screen: AboutNavigator,
             navigationOptions: {
@@ -201,7 +240,8 @@ const MainNavigator = createDrawerNavigator(
                     />
                 )
             } 
-        }
+        },
+        
     },
     {
         drawerBackgroundColor: '#CEC8FF',
@@ -209,8 +249,7 @@ const MainNavigator = createDrawerNavigator(
     }
 );
 
-
-//MAIN NAVIGATOR
+//APP NAVIGATOR
 const AppNavigator = createAppContainer(MainNavigator);
 
 //MAIN
