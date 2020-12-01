@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Text, View, ScrollView, FlatList,
          Modal, Button, StyleSheet } from 'react-native';
 import { Card, Icon, Rating, Input } from 'react-native-elements';
-import { postFavorite } from '../redux/ActionCreators';
+import { postFavorite, postComment } from '../redux/ActionCreators';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
-
 
 
 const mapStateToProps = state => {
@@ -17,7 +16,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-    postFavorite: campsiteId => (postFavorite(campsiteId))
+    postFavorite: campsiteId => (postFavorite(campsiteId)),
+    postComment: (campsiteId, rating, author, text) => (postComment(campsiteId, rating, author, text)) 
 };
 
 class CampsiteInfo extends Component{
@@ -39,7 +39,7 @@ class CampsiteInfo extends Component{
 
     handleComment(campsiteId){
         console.log(JSON.stringify(this.state));
-        this.toggleModal();
+        this.props.postComment(campsiteId, this.state.rating, this.state.author, this.state.text);
     }
 
     resetForm(){
