@@ -279,8 +279,6 @@ const MainNavigator = createDrawerNavigator(
                 )
             } 
         },
-        
-        
     },
     {
         drawerBackgroundColor: '#CEC8FF',
