@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import * as Animatable from 'react-native-animatable';
 
-
 const mapStateToProps = state => {
     return{
         campsites: state.campsites,
@@ -31,7 +30,8 @@ class CampsiteInfo extends Component{
             showModal: false,
             rating: 5,
             author: '',
-            text: ''
+            text: '',
+            showModal: false
         };
     }
 
@@ -43,6 +43,8 @@ class CampsiteInfo extends Component{
         console.log(JSON.stringify(this.state));
         this.props.postComment(campsiteId, this.state.rating, this.state.author, this.state.text);
     }
+
+
 
     resetForm(){
         this.setState({
@@ -134,6 +136,7 @@ function RenderCampsite(props) {
     const view = React.createRef(); 
 
     const recognizeDrag = ({dx}) => (dx < -200) ? true : false;
+    const recognizeComment = ({dx}) => (dx > 200) ? true : false;
 
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
@@ -161,6 +164,9 @@ function RenderCampsite(props) {
                     ],
                     { cancelable: false }
                 );
+            }
+            else if(recognizeComment(gestureState)){
+                props.onShowModal();
             }
             return true;
         }
@@ -265,7 +271,5 @@ const styles = StyleSheet.create({
         margin: 10
     }
 });
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(CampsiteInfo);
